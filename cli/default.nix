@@ -39,13 +39,12 @@ rustPlatform.buildRustPackage {
     "tracing"
   ];
 
-  nativeBuildInputs = [
+nativeBuildInputs = [
     pkg-config
     cmake
     clang
     llvmPackages.libclang
 
-    # REQUIRED for Sui / RocksDB builds
     rustPlatform.bindgenHook
     rustfmt
   ];
@@ -64,8 +63,10 @@ rustPlatform.buildRustPackage {
 
   # ROCKSDB_DISABLE_JEMALLOC = "1";
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
-  CXX = "${stdenv.cc}/bin/clang++";
-  CC = "${stdenv.cc}/bin/clang";
+  CXX_x86_64_unknown_linux_gnu = "${stdenv.cc}/bin/clang++";
+  CC_x86_64_unknown_linux_gnu = "${stdenv.cc}/bin/clang";
+  CXXFLAGS_x86_64_unknown_linux_gnu = "-include cstdint";
+  GIT_REVISION = "7565830eeebb";
   # OPENSSL_NO_VENDOR = 1;
 
   meta = with lib; {
