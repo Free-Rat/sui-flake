@@ -2,36 +2,35 @@
   lib,
   stdenv,
   rustPlatform,
-  fetchFromGitHub,
   pkg-config,
   cmake,
   clang,
   openssl,
   llvmPackages,
-
   rustfmt,
   jemalloc,
-
   zlib,
   snappy,
   lz4,
   zstd,
+  protobuf,
+  sui-src,
 }:
-rustPlatform.buildRustPackage {
-  pname = "sui";
-  version = "mainnet-v1.69.2";
+rustPlatform.buildRustPackage rec {
+  pname = "sui-cli-local";
+  version = "mainnet-v1.71.0";
 
-  src = fetchFromGitHub {
-    owner = "MystenLabs";
-    repo = "sui";
-    rev = "mainnet-v1.69.2";
-    hash = "sha256-c/IZTOGF5f5YxQGuqzQ2YQUJpMzKWR5LMhopfwQM2R0=";
+  src = builtins.path {
+    path = sui-src;
+    name = "sui-source";
+    filter = name: type: !(lib.hasSuffix ".git" name) && !(lib.hasInfix "/.git/" name) && !(lib.hasInfix "/target/" name);
   };
 
-  # cargoLock.lockFile = ./Cargo.lock;
-  cargoHash = "sha256-rQz7vv+cQ7XLJI0LieYUsr2U7Xwsn6AL/HOzGC8irxA=";
+  cargoLock = {
+    lockFile = ./Cargo.lock;
+    allowBuiltinFetchGit = true;
+  };
 
-  # the main CLI package
   cargoBuildFlags = [
     "--package"
     "sui"
@@ -39,35 +38,35 @@ rustPlatform.buildRustPackage {
     "tracing"
   ];
 
-nativeBuildInputs = [
+  nativeBuildInputs = [
     pkg-config
     cmake
     clang
     llvmPackages.libclang
-
     rustPlatform.bindgenHook
     rustfmt
+    protobuf
   ];
 
   buildInputs = [
     openssl
-    # clang
-
     zlib
     snappy
     lz4
     zstd
-
     jemalloc
   ];
 
-  # ROCKSDB_DISABLE_JEMALLOC = "1";
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
   CXX_x86_64_unknown_linux_gnu = "${stdenv.cc}/bin/clang++";
   CC_x86_64_unknown_linux_gnu = "${stdenv.cc}/bin/clang";
   CXXFLAGS_x86_64_unknown_linux_gnu = "-include cstdint";
-  GIT_REVISION = "7565830eeebb";
-  # OPENSSL_NO_VENDOR = 1;
+
+  PROTOC = "${protobuf}/bin/protoc";
+
+  GIT_REVISION = "1b164b191f124b6a43b4328b55db06bfb873cb76";
+
+  doCheck = false;
 
   meta = with lib; {
     description = "Sui CLI";

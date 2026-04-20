@@ -14,27 +14,43 @@
         config.allowUnfree = true;
       };
 
+      sui-src = /home/freerat/projects/sui;
+
       sui_main = pkgs.callPackage ./cli {
         stdenv = pkgs.clangStdenv;
+        inherit sui-src;
       };
     in
     {
-      # Expose the package
-      packages.${system}.sui = sui_main;
+      packages.${system}.sui-cli-local = sui_main;
 
-      # Optional: make it the default package
       defaultPackage.${system} = sui_main;
 
-      # Dev shell
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
           bash
           git
-          sui_main
+          pkg-config
+          cmake
+          clang
+          llvmPackages.libclang
+          openssl.dev
+          zlib
+          snappy
+          lz4
+          zstd
+          jemalloc
+          protobuf
+          rustfmt
+          rustc
+          cargo
         ];
 
+        LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+        CXXFLAGS = "-include cstdint";
+
         shellHook = ''
-          echo "hello sui"
+          echo "sui dev shell ready"
         '';
       };
     };
