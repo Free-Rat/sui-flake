@@ -31,16 +31,16 @@ rustPlatform.buildRustPackage rec {
     lockFile = ./Cargo.lock;
     outputHashes = {
       "alloy-multiprovider-strategy-0.1.0" = "sha256-a+Ilc9cy8S1/hR/0ymM+7wKvRVXp4LTN/s9FUL8EwU8=";
-      "anemo-0.0.0" = "sha256-qgOYGKxpehXQRHqvVTtYhS5NwbiRFz9ThmR++JjmI6I=";
-      "async-graphql-7.0.1" = "sha256-dbqzmp7ydPoTu91TGtHh47eb9nCTdnFBzWvZ0WHxPis=";
+      "msim-0.1.0" = "sha256-UBnvrpIb8PF2b8mI7ygSf+BjnuYuU987oIFNjCPrlDE=";
       "async-task-4.3.0" = "sha256-zMTWeeW6yXikZlF94w9I93O3oyZYHGQDwyNTyHUqH8g=";
+      "real_tokio-1.49.0" = "sha256-qRndfrzPM/bCBxSqnv4CwJ+m5jy5C3lj9GbzKeXd/WI=";
       "datatest-stable-0.1.3" = "sha256-VAdrD5qh6OfabMUlmiBNsVrUDAecwRmnElmkYzba+H0=";
       "fastcrypto-0.1.9" = "sha256-2B2m71Kumx/9e04yj+QIn/KG+sGZOK27SeYgheJOb84=";
-      "json_to_table-0.6.0" = "sha256-UKMTa/9WZgM58ChkvQWs1iKWTs8qk71gG+Q/U/4D4x4=";
-      "msim-0.1.0" = "sha256-UBnvrpIb8PF2b8mI7ygSf+BjnuYuU987oIFNjCPrlDE=";
+      "async-graphql-7.0.1" = "sha256-dbqzmp7ydPoTu91TGtHh47eb9nCTdnFBzWvZ0WHxPis=";
       "nexlint-0.1.0" = "sha256-L9vf+djTKmcz32IhJoBqAghQ8mS3sc9I2C3BBDdUxkQ=";
+      "anemo-0.0.0" = "sha256-qgOYGKxpehXQRHqvVTtYhS5NwbiRFz9ThmR++JjmI6I=";
       "minibytes-0.1.0" = "sha256-n5rG5P06IXrP/+A+WvvwWYq0GDzN8B7ldu84JqAHZmk=";
-      "real_tokio-1.49.0" = "sha256-qRndfrzPM/bCBxSqnv4CwJ+m5jy5C3lj9GbzKeXd/WI=";
+      "json_to_table-0.6.0" = "sha256-UKMTa/9WZgM58ChkvQWs1iKWTs8qk71gG+Q/U/4D4x4=";
       "sui-crypto-0.2.0" = "sha256-EK5FC5eHk4Ut1zo4TvHv1nVq7r8w+N5SgAvk9CaQMYw=";
     };
   };
