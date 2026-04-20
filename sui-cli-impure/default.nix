@@ -17,8 +17,8 @@
   sui-src,
 }:
 rustPlatform.buildRustPackage rec {
-  pname = "sui-cli-local";
-  version = "mainnet-v1.71.0";
+  pname = "sui-cli-impure";
+  version = "1.71.0";
 
   src = builtins.path {
     path = sui-src;

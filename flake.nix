@@ -16,15 +16,20 @@
 
       sui-src = /home/freerat/projects/sui;
 
-      sui_main = pkgs.callPackage ./cli {
+      sui-cli-impure = pkgs.callPackage ./sui-cli-impure {
         stdenv = pkgs.clangStdenv;
         inherit sui-src;
       };
+
+      sui-cli = pkgs.callPackage ./sui-cli {
+        stdenv = pkgs.clangStdenv;
+      };
     in
     {
-      packages.${system}.sui-cli-local = sui_main;
-
-      defaultPackage.${system} = sui_main;
+      packages.${system} = {
+        inherit sui-cli sui-cli-impure;
+        default = sui-cli-impure;
+      };
 
       devShells.${system}.default = pkgs.mkShell {
         packages = with pkgs; [
